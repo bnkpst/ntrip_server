@@ -49,10 +49,6 @@ class HTTPServer(TCPServer):
                 print(header.split(':'))
 
 
-
-
-
-
     def handle_request(self, data):
 
         self.parse_headers(data)
@@ -70,6 +66,13 @@ class HTTPServer(TCPServer):
         response_body = b'ENDSOURCETABLE'
 
         return b''.join([response_line, headers, blank_line, response_body])
+
+class NTRIPServer(HTTPServer):
+    # TODO
+
+    def serve_source_table():
+
+        return b'source table'
 
 
 if __name__ == '__main__':
