@@ -3,7 +3,7 @@ import socket
 
 
 class TCPServer:
-    def __init__(self, host='0.0.0.0', port=3000):
+    def __init__(self, host='0.0.0.0', port=2101):
         self.host = host
         self.port = port
 
@@ -53,7 +53,7 @@ class HTTPServer(TCPServer):
 
         self.parse_headers(data)
 
-        response_line = b'HTTP/1.1 200 OK\r\n'
+        response_line = b'ICY 200 OK\r\n'
 
         headers = b''.join([
             b'Server: bnkpst ntrip server\r\n', 
@@ -63,7 +63,11 @@ class HTTPServer(TCPServer):
 
         blank_line = b'\r\n'
 
-        response_body = b'ENDSOURCETABLE'
+        response_body = b''.join([
+            b'STR;Ben1;VRS-ben1;RTCM 3.0;1005(1),1033(1),1074(1),1084(1),1094(1),1124(1);2;GPS+GLONASS+BDS+GALILEO;eGPS;RUS;0.00;0.00;1;1;CPS;none;B;N;0;\r\n',
+            b'STR;Ben2;VRS-ben2;RTCM 3.0;1005(1),1033(1),1004(1),1012(1),1104(1);2;GPS+GLONASS;eGPS;RUS;0.00;0.00;1;1;CPS;none;B;N;0;\r\n',
+            b'ENDSOURCETABLE'
+        ])
 
         return b''.join([response_line, headers, blank_line, response_body])
 
